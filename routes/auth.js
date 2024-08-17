@@ -23,8 +23,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//
-
 //Login
 router.post("/login", async (req, res) => {
   try {
@@ -45,15 +43,18 @@ router.post("/login", async (req, res) => {
       res.status(401).json("Wrong Password");
 
     const accessToken = jwt.sign(
-      { id: user._id, isAdmin: user.isAdmin },
+      {
+        id: user._id,
+        isAdmin: user.isAdmin,
+      },
       process.env.JWT_SEC,
-      { expiresIn: "3d" }
+      {
+        expiresIn: "3d",
+      }
     );
 
     const { password, ...others } = user._doc;
 
-    // res.status(200).json(others, accessToken);
-    // res.status(200).json({ others, accessToken });
     res.status(200).json({ ...others, accessToken });
   } catch (error) {
     res.status(500).json(error);
