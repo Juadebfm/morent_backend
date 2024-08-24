@@ -1,15 +1,13 @@
 const mongoose = require("mongoose");
 
-// User Schema
-
 const CarSchema = new mongoose.Schema(
   {
-    title: {
+    carName: {
       type: String,
       required: true,
       unique: true,
     },
-    desc: {
+    carType: {
       type: String,
       required: true,
     },
@@ -17,16 +15,27 @@ const CarSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    category: {
-      type: Array,
+    fuelCapacity: {
+      type: Number,
+      required: true,
     },
-    size: {
+    transmission: {
       type: String,
+      required: true,
     },
-    color: {
-      type: String,
+    seatingCapacity: {
+      type: Number,
+      required: true,
     },
     price: {
+      type: Number,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    ratings: {
       type: Number,
       required: true,
     },
