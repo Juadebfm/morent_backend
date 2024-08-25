@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const carRoute = require("./routes/car");
+const cartRoute = require("./routes/cart");
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/cars", carRoute);
+app.use("/api/cart", cartRoute);
 
 // to listen to the application
 app.listen(process.env.PORT || 3001, () => {
