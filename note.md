@@ -7,5 +7,7 @@
 5. Now we will update user so we can understand why we need access token by going to the user route
 6. But we need to create a middleware that verifies the web token. so we create verifytoken & verifytoken alternates functions.
 7. Then we import the the alternates where needed middle ware in the user route
-8. 
 
+Set up for more than one word query for getting all cars
+
+Check to ensure we do the delete `cart?` if needed

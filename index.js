@@ -6,6 +6,7 @@ const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const carRoute = require("./routes/car");
 const cartRoute = require("./routes/cart");
+const orderRoute = require("./routes/order");
 
 dotenv.config();
 
@@ -25,6 +26,8 @@ app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/cars", carRoute);
 app.use("/api/cart", cartRoute);
+app.use("/api/cart", cartRoute);
+app.use("/api/order", orderRoute);
 
 // to listen to the application
 app.listen(process.env.PORT || 3001, () => {
