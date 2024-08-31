@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -10,6 +11,8 @@ const orderRoute = require("./routes/order");
 
 dotenv.config();
 
+const stripeRoute = require("./routes/stripe");
+
 // connect our code to the database (MongoDB)
 mongoose
   .connect(process.env.MONGO_URL)
@@ -20,6 +23,9 @@ mongoose
     console.log(err);
   });
 
+// Because when you get to the frontend to test stripe, you will encounter something called CORS error, cross origin resource error
+
+app.use(cors());
 //Use the route
 app.use(express.json());
 app.use("/api/users", userRoute);
@@ -28,6 +34,7 @@ app.use("/api/cars", carRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/order", orderRoute);
+app.use("/api/checkout", stripeRoute);
 
 // to listen to the application
 app.listen(process.env.PORT || 3001, () => {
