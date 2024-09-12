@@ -33,7 +33,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/cars", carRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/cart", cartRoute);
-app.use("/api/order", orderRoute);
+app.use("/api/orders", orderRoute);
 app.use("/api/checkout", stripeRoute);
 
 // to listen to the application
