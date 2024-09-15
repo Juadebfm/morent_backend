@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+const { verifyToken } = require("../middleware/verifyToken"); // Adjust the path as needed
 
 //Register
 router.post("/register", async (req, res) => {
@@ -30,7 +31,7 @@ router.post("/login", async (req, res) => {
       username: req.body.username,
     });
 
-    !user && res.status(401).json("Wrong Username");
+    if (!user) return res.status(401).json("Wrong Username");
 
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
@@ -39,18 +40,13 @@ router.post("/login", async (req, res) => {
 
     const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
-    OriginalPassword !== req.body.password &&
-      res.status(401).json("Wrong Password");
+    if (OriginalPassword !== req.body.password)
+      return res.status(401).json("Wrong Password");
 
     const accessToken = jwt.sign(
-      {
-        id: user._id,
-        isAdmin: user.isAdmin,
-      },
+      { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SEC,
-      {
-        expiresIn: "3d",
-      }
+      { expiresIn: "3d" }
     );
 
     const { password, ...others } = user._doc;
@@ -61,4 +57,17 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router; // Export the router
+// Verify Token
+router.get("/verify", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json("User not found");
+
+    const { password, ...userData } = user._doc;
+    res.status(200).json(userData);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+module.exports = router;
