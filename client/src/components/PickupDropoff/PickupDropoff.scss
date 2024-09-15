@@ -1,0 +1,179 @@
+@import "../../styling/variables";
+
+.pickup_dropoff_container {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  .pickup {
+    width: 100%;
+    background-color: $morentWhite;
+    box-shadow: 0px 0px 5px 1px $morentNotifBrd;
+    border-radius: 10px;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+
+    .point_name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      gap: 6px;
+      .point_icon {
+        color: $morentBlue;
+        font-size: 18px;
+      }
+    }
+
+    .pickup_selectors {
+      width: 100%;
+      height: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      place-items: center start;
+      gap: 20px;
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+        height: auto;
+      }
+
+      .section {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 7px;
+        width: 100%;
+
+        span {
+          text-transform: capitalize;
+          font-weight: bold;
+        }
+
+        &:first-of-type,
+        &:nth-child(2) {
+          border-right: 1px solid $morentNotifBrd;
+          @media (max-width: 768px) {
+            border-right: none;
+            border-bottom: 1px solid $morentNotifBrd;
+          }
+        }
+
+        select {
+          border: none;
+          width: 92%;
+          padding: 0;
+          color: $morentPlaceholderText;
+          font-family: $pJakartaSans;
+
+          @media (max-width: 768px) {
+            padding: 18px 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .switch_btn {
+    background-color: $morentBlue;
+    padding: 18px;
+    border-radius: 9px;
+    box-shadow: 0px 0px 5px 1px $morentNotifBrd;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      box-shadow: 0px 0px 5px 8px $morentNotifBrd;
+    }
+
+    .switch_icon {
+      width: 30px;
+      height: 30px;
+      color: $morentWhite;
+    }
+  }
+
+  .dropoff {
+    width: 100%;
+    background-color: $morentWhite;
+    box-shadow: 0px 0px 5px 1px $morentNotifBrd;
+    border-radius: 10px;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+
+    .point_name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      gap: 6px;
+      .point_icon {
+        color: $morentBlue;
+        font-size: 18px;
+      }
+    }
+
+    .dropoff_selectors {
+      width: 100%;
+      height: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      place-items: center start;
+      gap: 20px;
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(1, 1fr);
+        height: auto;
+      }
+
+      .section {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 7px;
+        width: 100%;
+
+        span {
+          text-transform: capitalize;
+          font-weight: bold;
+        }
+
+        &:first-of-type,
+        &:nth-child(2) {
+          border-right: 1px solid $morentNotifBrd;
+          @media (max-width: 768px) {
+            border-right: none;
+            border-bottom: 1px solid $morentNotifBrd;
+          }
+        }
+
+        select {
+          border: none;
+          width: 92%;
+          padding: 0;
+          color: $morentPlaceholderText;
+          font-family: $pJakartaSans;
+
+          @media (max-width: 768px) {
+            padding: 18px 0px;
+          }
+        }
+      }
+    }
+  }
+}

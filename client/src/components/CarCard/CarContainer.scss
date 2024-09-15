@@ -1,0 +1,18 @@
+@import "../../styling/variables";
+
+.car_container {
+  @media (max-width: 768px) {
+  }
+  .car_grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+    row-gap: 40px;
+  }
+
+  .recom_car_title {
+    margin-top: 40px;
+  }
+}
