@@ -94,9 +94,9 @@ CarCard.propTypes = {
     image: PropTypes.string.isRequired,
     carType: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    fuelCapacity: PropTypes.string.isRequired,
+    fuelCapacity: PropTypes.number.isRequired,
     transmission: PropTypes.string.isRequired,
-    seatingCapacity: PropTypes.string.isRequired,
+    seatingCapacity: PropTypes.number.isRequired,
   }).isRequired,
 };
 

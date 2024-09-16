@@ -5,6 +5,8 @@ import "./CarContainer.scss";
 
 const CarContainer = () => {
   const { cars, recommendedCars } = useCars();
+  console.log(cars);
+  console.log(recommendedCars);
 
   return (
     <div className="car_container">
