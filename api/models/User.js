@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-// User Schema
-
 const UserSchema = new mongoose.Schema(
   {
     username: {
@@ -22,8 +20,12 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    profileImage: {
+      type: String,
+      default: "", // Default empty string if no image is provided
+    },
   },
-  { timestamps: true } // this creates the createdAt and updatedAt values
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("User", UserSchema);
