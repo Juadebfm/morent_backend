@@ -9,9 +9,8 @@ const CryptoJS = require("crypto-js");
 
 const router = express.Router();
 
-// Update User
+// Update user (including profile image)
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
-  // Confirming user password as another layer of the securityu, check user password for situation where the user has changed it.
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
@@ -24,10 +23,11 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       {
         $set: req.body,
       },
-
       { new: true }
     );
-    res.status(200).json(updatedUser);
+
+    const { password, ...others } = updatedUser._doc;
+    res.status(200).json(others);
   } catch (error) {
     res.status(500).json(error);
   }

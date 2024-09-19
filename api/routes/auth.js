@@ -79,7 +79,7 @@ router.get("/verify", verifyToken, async (req, res) => {
       accessToken: newToken,
     });
   } catch (error) {
-    console.error("Error in /verify endpoint:", error);
+    console.error("Error in verifying user's access from the backend:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
