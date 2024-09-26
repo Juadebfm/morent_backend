@@ -2,66 +2,92 @@
 
 nav {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 28px 4rem;
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 10000;
-  background: $morentWhite;
-
-  @media (max-width: 768px) {
-    padding: 28px 35px;
-  }
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #eaeaea;
 
   .navbar_logo_search {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6rem;
 
-    span {
-      font-size: 32px;
-      font-weight: bold;
-      color: $morentBlue;
-      text-transform: uppercase;
+    a {
+      span {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-right: 2rem;
+      }
     }
 
-    div {
+    .search-container {
+      display: flex;
+      align-items: center;
       position: relative;
-      @media (max-width: 768px) {
-        display: none;
+
+      input {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 0.5rem;
+        font-size: 1rem;
+        width: 250px;
+        transition: border-color 0.3s;
+
+        &:focus {
+          border-color: #007bff;
+        }
       }
 
       .navbar_logo_search_icon {
-        position: absolute;
-        font-size: 24px;
-        color: $morentDarkGray;
-        transform: translate(50%, 50%);
+        font-size: 1.5rem;
+        color: #555;
         cursor: pointer;
+        margin-left: 8px;
 
-        &:first-of-type {
-          left: 10px;
-          top: -2.5px;
-        }
+        .search-dropdown {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: #fff;
+          border: 1px solid #eaeaea;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+          z-index: 10;
+          .search_result_item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            cursor: pointer;
 
-        &:last-of-type {
-          right: 30px;
-          top: -2.5px;
-        }
-      }
+            &:hover {
+              background-color: #f8f8f8;
+            }
 
-      input {
-        width: 492px;
-        padding: 13px 2rem;
-        border: 1px solid $morentNotifBrd;
-        border-radius: 999px;
+            .car_thumbnail {
+              width: 40px;
+              height: 40px;
+              object-fit: cover;
+              border-radius: 4px;
+              margin-right: 1rem;
+            }
 
-        &::placeholder {
-          font-family: $pJakartaSans;
-          font-weight: 500;
-          padding-left: 20px;
+            .car_info {
+              display: flex;
+              flex-direction: column;
+
+              .car-name {
+                font-weight: bold;
+              }
+
+              .car-type,
+              .car-price,
+              .car-transmission {
+                font-size: 0.8rem;
+                color: #666;
+              }
+            }
+          }
         }
       }
     }
@@ -70,31 +96,41 @@ nav {
   .navbar_user_notif {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 18px;
 
     .navbar_notif_icons {
-      width: 42px;
-      height: 42px;
-      border: 1px solid $morentNotifBrd;
-      font-size: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      color: $morentDarkGray;
+      margin-left: 1.5rem;
+      position: relative;
       cursor: pointer;
 
-      @media (max-width: 768px) {
-        display: none;
+      .icon-with-badge {
+        position: relative;
+
+        .badge {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background-color: #ff5b5b;
+          color: #fff;
+          border-radius: 50%;
+          padding: 2px 6px;
+          font-size: 0.8rem;
+          font-weight: bolder;
+        }
+      }
+
+      svg {
+        font-size: 1.5rem;
+        color: #555;
       }
     }
 
-    div {
-      img {
-        width: 44px;
-        height: 44px;
-      }
+    img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-left: 1.5rem;
+      border: 2px solid #eaeaea;
     }
   }
 }
