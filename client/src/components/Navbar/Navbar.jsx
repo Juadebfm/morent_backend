@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../Navbar/Navbar.scss";
 import { CiSearch } from "react-icons/ci";
 import { VscSettings } from "react-icons/vsc";
@@ -9,27 +10,22 @@ import {
   IoMdSettings,
 } from "react-icons/io";
 import { userprofile } from "../../assets/assets";
-import { useAuth } from "../../context/authContext";
 import { useCars } from "../../context/carContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/authContext"; // Assuming you have this
 
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [likedCars, setLikedCars] = useState([]);
-  // State for carCount
   const [newCarsCount, setNewCarsCount] = useState(0);
-
-  // contexts
-  const { user } = useAuth();
   const { cars } = useCars();
+  const { user } = useAuth(); // Get the user from AuthContext
   const navigate = useNavigate();
 
-  //Liked cars and other functionalities
   useEffect(() => {
     const storedLikedCars = JSON.parse(localStorage.getItem("likedCars")) || {};
     setLikedCars(storedLikedCars);
-    console.log(storedLikedCars);
+    console.log("Liked Cars from localStorage:", storedLikedCars);
 
     const checkForNewCars = async () => {
       try {
@@ -37,24 +33,23 @@ const Navbar = () => {
           "https://morent-backend-zeta.vercel.app/api/cars/count"
         );
         const { count } = await response.json();
-        const oldCount = localStorage.getItem("carCount"); /* */
+        const oldCount = localStorage.getItem("carCount");
         if (oldCount && count > parseInt(oldCount)) {
           setNewCarsCount(count - parseInt(oldCount));
         }
         localStorage.setItem("carCount", count.toString());
       } catch (error) {
-        console.log(error);
+        console.error("Error checking for new cars:", error);
       }
     };
-    checkForNewCars();
 
-    // set up an interval to check for new cars every 5 minutes
+    checkForNewCars();
+    // Set up an interval to check for new cars every 5 minutes
     const interval = setInterval(checkForNewCars, 5 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // filter cars
   useEffect(() => {
     if (searchTerm) {
       const filteredCars = cars.filter(
@@ -79,53 +74,52 @@ const Navbar = () => {
     setSearchTerm("");
     setSearchResults([]);
   };
+
   return (
     <nav>
       <div className="navbar_logo_search">
-        <Link to="/">
-          <span>Morent</span>
-        </Link>
+        <span>Morent</span>
         <div className="search-container">
           <CiSearch className="navbar_logo_search_icon" />
           <input
             type="text"
-            placeholder="Search Something Here"
+            placeholder="Search by name, type, price, or transmission"
             value={searchTerm}
             onChange={handleSearchChange}
           />
           <VscSettings className="navbar_logo_search_icon" />
-          <div className="search-dropdown">
-            {searchResults.map((car) => (
-              <div
-                key={car.id}
-                className="search_result_item"
-                onClick={() => handleCarSelect(car.id)}
-              >
-                <img
-                  src={car.image}
-                  alt={car.carName}
-                  className="car_thumbnail"
-                />
-                <div className="car_info">
-                  <span className="car-name">{car.carName}</span>
-                  <span className="car-type">{car.carType}</span>
-                  <span className="car-price">{car.price}</span>
-                  <span className="car-transmission">{car.transmission}</span>
+          {searchResults.length > 0 && (
+            <div className="search-dropdown">
+              {searchResults.map((car) => (
+                <div
+                  key={car.id}
+                  className="search-result-item"
+                  onClick={() => handleCarSelect(car.id)}
+                >
+                  <img
+                    src={car.image}
+                    alt={car.carName}
+                    className="car-thumbnail"
+                  />
+                  <div className="car-info">
+                    <span className="car-name">{car.carName}</span>
+                    <span className="car-type">{car.carType}</span>
+                    <span className="car-price">${car.price}/day</span>
+                    <span className="car-transmission">{car.transmission}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
       <div className="navbar_user_notif">
         <div className="navbar_notif_icons">
           {Object.keys(likedCars).length > 0 ? (
-            <div>
-              <div>
-                <IoMdHeart color="red" />
-                <span className="badge">{Object.keys(likedCars).length}</span>
-              </div>
+            <div className="icon-with-badge">
+              <IoMdHeart color="red" />
+              <span className="badge">{Object.keys(likedCars).length}</span>
             </div>
           ) : (
             <IoMdHeartEmpty />
@@ -146,7 +140,14 @@ const Navbar = () => {
           <IoMdSettings />
         </div>
         <div>
-          <img src={user?.profileImage || userprofile} alt="User Profile " />
+          <img
+            src={user?.profileImage || userprofile}
+            alt="User Profile"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = userprofile;
+            }}
+          />
         </div>
       </div>
     </nav>
